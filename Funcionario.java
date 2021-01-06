@@ -238,21 +238,27 @@ public class Funcionario {
 		  String usuario = "root";
 	      String senha = "";
 	      String url = "jdbc:mysql://localhost/farmacia";
-	        java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
-	        String Sql = "SELECT func_nome FROM funcionario WHERE func_cpf = " + cpf_user + 
-	        		" AND func_rg = " + rg_pass + "";
-	        PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
-	        comando.execute();
-	        comando.close();
-	        JOptionPane.showMessageDialog(null, "Login efetuado com sucesso");
+	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+	      String Sql = "SELECT `func_nome` FROM `funcionario` WHERE `func_cpf` = '"+ cpf_user + "' AND `func_rg` = '"+rg_pass+"'";
+	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+	      comando.execute();
+	      
+	      ResultSet resultado = comando.executeQuery();
+	      
+	      if(resultado != null && resultado.next()){
+	    	  setFunc_nome(resultado.getString("func_nome"));
+          }
+	      
+	      resultado.close();
+	      comando.close();
+	      conn.close();
 	  }
 
 
 	  /**
 	   * @param        func
 	   */
-	  public void cadastra(Funcionario func)
-	  {
+	  public void cadastra(Funcionario func){
 	  }
 
 
@@ -265,9 +271,26 @@ public class Funcionario {
 
 
 	  /**
+	 * @throws SQLException 
 	   */
-	  public void lista()
-	  {
+	  public void lista() throws SQLException{
+		  String usuario = "root";
+	      String senha = "";
+	      String url = "jdbc:mysql://localhost/farmacia";
+	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+	      String Sql = "SELECT * FROM `funcionario`";
+	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+	      comando.execute();
+	      
+	      ResultSet resultado = comando.executeQuery();
+	      
+	      if(resultado != null && resultado.next()){
+	    	  setFunc_nome(resultado.getString("func_nome"));
+          }
+	      
+	      resultado.close();
+	      comando.close();
+	      conn.close();
 	  }
 
 
