@@ -1,4 +1,4 @@
-CREATE DATABASE farmacia;
+CREATE DATABASE `farmacia`;
 
 CREATE TABLE `cliente`(
   `clie_cpf` VARCHAR(14) PRIMARY KEY NOT NULL,
@@ -53,16 +53,16 @@ CREATE TABLE `produto`(
   `prod_dtvalidade` DATE NOT NULL
 );
 
-ALTER TABLE `farmaceutico` ADD CONSTRAINT func_cpf
+ALTER TABLE `farmaceutico` ADD CONSTRAINT `func_cpf`
 FOREIGN KEY (`func_cpf`) REFERENCES `funcionario` (`func_cpf`);
 
-ALTER TABLE `compra` ADD CONSTRAINT produto_compra_fk
+ALTER TABLE `compra` ADD CONSTRAINT `produto_compra_fk`
 FOREIGN KEY (`prod_codigo`) REFERENCES `produto` (`prod_codigo`);
 
-ALTER TABLE `compra` ADD CONSTRAINT cliente_compra_fk
+ALTER TABLE `compra` ADD CONSTRAINT `cliente_compra_fk`
 FOREIGN KEY (`clie_cpf`) REFERENCES `cliente` (`clie_cpf`);
 
-ALTER TABLE `compra` ADD CONSTRAINT funcionario_compra_fk
+ALTER TABLE `compra` ADD CONSTRAINT `funcionario_compra_fk`
 FOREIGN KEY (`func_cpf`) REFERENCES `funcionario` (`func_cpf`);
 
 INSERT INTO `cliente` (`clie_cpf`, `clie_nome`, `clie_rg`, `clie_sexo`, `clie_planosaude`, `clie_desconto`, `clie_tel`, `clie_cep`, `clie_rua`, `clie_numero`, `clie_bairro`) VALUES
@@ -74,6 +74,7 @@ INSERT INTO `cliente` (`clie_cpf`, `clie_nome`, `clie_rg`, `clie_sexo`, `clie_pl
 INSERT INTO `farmaceutico` (`farma_crf`, `func_cpf`) VALUES ('89561', '314.793.311-39');
 
 INSERT INTO `funcionario` (`func_cpf`, `func_rg`, `func_dtnascimento`, `func_sexo`, `func_nome`, `func_cep`, `func_rua`, `func_bairro`, `func_numero`) VALUES
+('1', '1', '1901-01-01', 'F', '1', '11111-111', '1', '1', '1'), -- Teste p/ facilitar o login (apagar para entrega)
 ('314.793.311-39', '22.931.928-2', '1980-08-27', 'F', 'Eduarda Isabelle Dias', '58055-710', 'Rua Dineza Carneiro Monteiro', 'Mangabeira', '234C'),
 ('688.540.376-80', '24.668.927-4', '1988-03-06', 'F', 'Simone Nunes', '84060-270', 'Rua Osório Subtil Marçal', 'Contorno', '100'),
 ('698.856.281-85', '10.057.146-3', '1991-07-13', 'M', 'Luiz Henrique Gomes', '69313-688', 'Avenida Rui Baraúna', 'Jardim Caranã', '814A');
