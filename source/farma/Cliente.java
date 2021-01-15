@@ -1,5 +1,16 @@
 package farmacia;
 
+import java.awt.Color;
+import java.awt.TextArea;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.PreparedStatement;
+
 public class Cliente {
 	  private String clie_cpf;
 	  private String clie_nome;
@@ -15,228 +26,182 @@ public class Cliente {
 	  
 	  public Cliente(){ };
 	  
-	  //
-	  // Methods
-	  //
-
-
-	  //
-	  // Accessor methods
-	  //
-
-	  /**
-	   * Set the value of clie_cpf
-	   * @param newVar the new value of clie_cpf
-	   */
 	  public void setClie_cpf (String newVar) {
 	    clie_cpf = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_cpf
-	   * @return the value of clie_cpf
-	   */
 	  public String getClie_cpf () {
 	    return clie_cpf;
 	  }
 
-	  /**
-	   * Set the value of clie_nome
-	   * @param newVar the new value of clie_nome
-	   */
 	  public void setClie_nome (String newVar) {
 	    clie_nome = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_nome
-	   * @return the value of clie_nome
-	   */
 	  public String getClie_nome () {
 	    return clie_nome;
 	  }
 
-	  /**
-	   * Set the value of clie_rg
-	   * @param newVar the new value of clie_rg
-	   */
 	  public void setClie_rg (String newVar) {
 	    clie_rg = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_rg
-	   * @return the value of clie_rg
-	   */
 	  public String getClie_rg () {
 	    return clie_rg;
 	  }
 
-	  /**
-	   * Set the value of clie_sexo
-	   * @param newVar the new value of clie_sexo
-	   */
 	  public void setClie_sexo (char newVar) {
 	    clie_sexo = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_sexo
-	   * @return the value of clie_sexo
-	   */
 	  public char getClie_sexo () {
 	    return clie_sexo;
 	  }
 
-	  /**
-	   * Set the value of clie_planosaude
-	   * @param newVar the new value of clie_planosaude
-	   */
 	  public void setClie_planosaude (String newVar) {
 	    clie_planosaude = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_planosaude
-	   * @return the value of clie_planosaude
-	   */
 	  public String getClie_planosaude () {
 	    return clie_planosaude;
 	  }
 
-	  /**
-	   * Set the value of clie_desconto
-	   * @param newVar the new value of clie_desconto
-	   */
 	  public void setClie_desconto (Double newVar) {
 	    clie_desconto = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_desconto
-	   * @return the value of clie_desconto
-	   */
 	  public Double getClie_desconto () {
 	    return clie_desconto;
 	  }
 
-	  /**
-	   * Set the value of clie_tel
-	   * @param newVar the new value of clie_tel
-	   */
 	  public void setClie_tel (String newVar) {
 	    clie_tel = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_tel
-	   * @return the value of clie_tel
-	   */
 	  public String getClie_tel () {
 	    return clie_tel;
 	  }
 
-	  /**
-	   * Set the value of clie_cep
-	   * @param newVar the new value of clie_cep
-	   */
 	  public void setClie_cep (String newVar) {
 	    clie_cep = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_cep
-	   * @return the value of clie_cep
-	   */
 	  public String getClie_cep () {
 	    return clie_cep;
 	  }
 
-	  /**
-	   * Set the value of clie_rua
-	   * @param newVar the new value of clie_rua
-	   */
 	  public void setClie_rua (String newVar) {
 	    clie_rua = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_rua
-	   * @return the value of clie_rua
-	   */
 	  public String getClie_rua () {
 	    return clie_rua;
 	  }
 
-	  /**
-	   * Set the value of clie_numero
-	   * @param newVar the new value of clie_numero
-	   */
 	  public void setClie_numero (String newVar) {
 	    clie_numero = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_numero
-	   * @return the value of clie_numero
-	   */
 	  public String getClie_numero () {
 	    return clie_numero;
 	  }
 
-	  /**
-	   * Set the value of clie_bairro
-	   * @param newVar the new value of clie_bairro
-	   */
 	  public void setClie_bairro (String newVar) {
 	    clie_bairro = newVar;
 	  }
 
-	  /**
-	   * Get the value of clie_bairro
-	   * @return the value of clie_bairro
-	   */
 	  public String getClie_bairro () {
 	    return clie_bairro;
 	  }
 
-	  //
-	  // Other methods
-	  //
+	  public void cadastra(Cliente cli) throws SQLException{
+		  String usuario = "root";
+	      String senha = "";
+	      String url = "jdbc:mysql://localhost/farmacia";
+	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
 
-	  /**
-	   */
-	  public void cadastra()
-	  {
+	      String Sql = "INSERT INTO `cliente` (`clie_cpf`, `clie_nome`, `clie_rg`, `clie_sexo`,"
+	      		+ " `clie_planosaude`, `clie_desconto`, `clie_tel`, `clie_cep`, `clie_rua`,"
+	      		+ " `clie_numero`, `clie_bairro`) VALUES ('"+cli.getClie_cpf()+"','"+cli.getClie_nome()+"',"
+	      		+ "'"+cli.getClie_rg()+"','"+cli.getClie_sexo()+"','"+cli.getClie_planosaude()+"',"
+	      		+ "'"+cli.getClie_desconto()+"','"+cli.getClie_tel()+"','"+cli.getClie_cep()+"',"
+	      		+ "'"+cli.getClie_rua()+"','"+cli.getClie_numero()+"','"+cli.getClie_bairro()+"');";
+	      
+	      JOptionPane.showMessageDialog(null, Sql);
+	      
+	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+	      comando.execute();
+	      comando.close();
+	      conn.close();
 	  }
 
-
-	  /**
-	   */
-	  public void deleta()
-	  {
+	  public void deleta(){
+		  
 	  }
 
-
-	  /**
-	   */
-	  public void atualiza()
-	  {
+	  public void atualiza(){
+		  
 	  }
 
-
-	  /**
-	   */
-	  public void busca()
-	  {
+	  public Cliente busca(String cpf) throws SQLException{
+		    Cliente cli = new Cliente();
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "SELECT * FROM `cliente` WHERE `clie_cpf` = '"+cpf+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		      
+		    ResultSet resultado = comando.executeQuery();
+		    
+	        while(resultado.next()){
+	            cli.setClie_cpf(resultado.getString("clie_cpf")); 
+	            cli.setClie_nome(resultado.getString("clie_nome")); 
+	            cli.setClie_rg(resultado.getString("clie_rg")); 
+	            String gen = resultado.getString("clie_sexo");
+	            cli.setClie_sexo(gen.charAt(0)); 
+	            cli.setClie_planosaude(resultado.getString("clie_planosaude")); 
+	            cli.setClie_desconto(Double.parseDouble(resultado.getString("clie_desconto").replace(",", "."))); 
+	            cli.setClie_tel(resultado.getString("clie_tel")); 
+	            cli.setClie_cep(resultado.getString("clie_cep")); 
+	            cli.setClie_rua(resultado.getString("clie_rua")); 
+	            cli.setClie_numero(resultado.getString("clie_numero")); 
+	            cli.setClie_bairro(resultado.getString("clie_bairro")); 
+	        }
+		   
+		    resultado.close();
+		    comando.close();
+		    conn.close();
+		    return cli;
 	  }
 
-
-	  /**
-	   */
-	  public void lista()
-	  {
+	  public String lista() throws SQLException{
+			String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "SELECT `clie_nome`, `clie_sexo`, `clie_planosaude`, `clie_tel` FROM `cliente`";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		      
+		    ResultSet resultado = comando.executeQuery();
+		    
+		    ArrayList<String> registros = new ArrayList<>();
+	        while(resultado.next()){
+	            registros.add("Nome: "+resultado.getString("clie_nome") + 
+	                    "\nSexo: " + resultado.getString("clie_sexo") + 
+	                    "\nPlano de Saúde: " + resultado.getString("clie_planosaude") + 
+	                    "\nTelefone: " + resultado.getString("clie_tel")+"\n");
+	        }
+	        String lista = "";
+	        for(int j = 0; j < registros.size(); j++) {
+	            lista += registros.get(j) + "\n";
+	        }
+		   
+		    resultado.close();
+		    comando.close();
+		    conn.close();
+		    return lista;
 	  }
-
-
 }

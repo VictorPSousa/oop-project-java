@@ -1,5 +1,7 @@
 package farmacia;
 
+import java.awt.Color;
+import java.awt.TextArea;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -273,24 +275,33 @@ public class Funcionario {
 	  /**
 	 * @throws SQLException 
 	   */
-	  public void lista() throws SQLException{
-		  String usuario = "root";
-	      String senha = "";
-	      String url = "jdbc:mysql://localhost/farmacia";
-	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
-	      String Sql = "SELECT * FROM `funcionario`";
-	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
-	      comando.execute();
-	      
-	      ResultSet resultado = comando.executeQuery();
-	      
-	      if(resultado != null && resultado.next()){
-	    	  setFunc_nome(resultado.getString("func_nome"));
-          }
-	      
-	      resultado.close();
-	      comando.close();
-	      conn.close();
+	  public String lista() throws SQLException{
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+			
+			String Sql = "SELECT `func_nome`, `func_sexo`, `func_dtnascimento` FROM `funcionario`";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		      
+		    ResultSet resultado = comando.executeQuery();
+		    
+		    ArrayList<String> registros = new ArrayList<>();
+	        while(resultado.next()){
+	            registros.add("Nome: "+resultado.getString("func_nome") + 
+	                    "\nSexo: " + resultado.getString("func_sexo") + 
+	                    "\nDt. Nasc: " + resultado.getString("func_dtnascimento")+"\n");
+	        }
+	        String lista = "";
+	        for(int j = 0; j < registros.size(); j++) {
+	            lista += registros.get(j) + "\n";
+	        }
+		   
+		    resultado.close();
+		    comando.close();
+		    conn.close();
+		    return lista;
 	  }
 
 

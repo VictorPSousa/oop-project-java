@@ -80,10 +80,7 @@ public class frmFuncion extends JFrame{
 		btnVolta.setBounds(10, 11, 68, 23);
 		contentPane.add(btnVolta);
 		
-		String usuario = "root";
-	    String senha = "";
-	    String url = "jdbc:mysql://localhost/farmacia";
-	    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		Funcionario func = new Funcionario();
 	    
 		if(list) {
 			JLabel lblNewLabel = new JLabel("Lista de Funcion\u00E1rios");
@@ -92,33 +89,12 @@ public class frmFuncion extends JFrame{
 			lblNewLabel.setBounds(135, 11, 174, 14);
 			contentPane.add(lblNewLabel);
 			
-			String Sql = "SELECT `func_nome`, `func_sexo`, `func_dtnascimento` FROM `funcionario`";
-		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
-		    comando.execute();
-		      
-		    ResultSet resultado = comando.executeQuery();
-		    
-		    ArrayList<String> registros = new ArrayList<>();
-	        while(resultado.next()){
-	            registros.add(resultado.getString("func_nome") + 
-	                    " \t " + resultado.getString("func_sexo") + 
-	                    " \t " + resultado.getString("func_dtnascimento"));
-	        }
-	        String lista = "Nome \t \t Sexo \t \t Data Nas. \n";
-	        for(int j = 0; j < registros.size(); j++) {
-	            lista += registros.get(j) + "\n";
-	        }
-	        
-	        TextArea cxTxt = new TextArea();
+			TextArea cxTxt = new TextArea();
 			cxTxt.setBounds(10, 101, 425, 173);
 			cxTxt.setBackground(Color.WHITE);
 			contentPane.add(cxTxt);
 			cxTxt.setEditable(false); 
-	        cxTxt.setText(lista);
-		   
-		    resultado.close();
-		    comando.close();
-		    conn.close();
+	        cxTxt.setText(func.lista());
 		}else {
 			JLabel lblNewLabel = new JLabel("Formulário");
 			lblNewLabel.setForeground(new Color(0, 0, 102));

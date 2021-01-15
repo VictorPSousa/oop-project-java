@@ -1,8 +1,11 @@
 package farmacia;
 
+import java.awt.Color;
+import java.awt.TextArea;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -89,39 +92,64 @@ public class Produto {
 	      String senha = "";
 	      String url = "jdbc:mysql://localhost/farmacia";
 	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+
 	      String Sql = "INSERT INTO `produto`(`prod_nome`, `prod_categoria`, `prod_estoque`,"
 	      		+ " `prod_fornecedor`, `prod_preco`, `prod_marca`, `prod_dtvalidade`) VALUES"
-	      		+ " ("+prod.getProd_nome()+","+prod.getProd_categoria()+","
-	      		+ " "+prod.getProd_estoque()+","+prod.getProd_fornecedor()+","
-	      		+ " "+prod.getProd_preco()+","+prod.getProd_marca()+","
-	      		+ " "+prod.getProd_dtvalidade()+")";
+	      		+ " ('"+prod.getProd_nome()+"','"+prod.getProd_categoria()+"',"
+	      		+ " '"+prod.getProd_estoque()+"','"+prod.getProd_fornecedor()+"',"
+	      		+ " '"+prod.getProd_preco()+"','"+prod.getProd_marca()+"',"
+	      		+ " '"+prod.getProd_dtvalidade()+"')";
+	      
+	      JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+	      
 	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
 	      comando.execute();
-	      
-	      ResultSet resultado = comando.executeQuery();
-	      
-	      if(resultado != null && resultado.next()){
-	    	  JOptionPane.showMessageDialog(null, "Produto inserido com sucesso!");
-          }
-	      
-	      resultado.close();
 	      comando.close();
 	      conn.close();
 	  }
 
-	  public void deleta()
-	  {
+	  public void deleta(){
+		  
 	  }
 
-	  public void busca()
-	  {
+	  public void busca(){
+		  
 	  }
 
-	  public void lista()
-	  {
+	  public String lista() throws SQLException{
+		    String lista = "";
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+			
+			String Sql = "SELECT * FROM `produto`";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		      
+		    ResultSet resultado = comando.executeQuery();
+		    
+		    ArrayList<String> registros = new ArrayList<>();
+	        while(resultado.next()){
+	            registros.add(resultado.getString("prod_nome") + 
+	                    "\nCategoria: " + resultado.getString("prod_categoria") + 
+	                    "\nEstoque: " + resultado.getString("prod_estoque") +
+	                    "\nFornecedor: " + resultado.getString("prod_fornecedor") +
+	                    "\nPreco: R$" + resultado.getString("prod_preco") +
+	                    "\nMarca: " + resultado.getString("prod_marca") +
+	                    "\nData val: " + resultado.getString("prod_dtvalidade") + "\n\n");
+	        }
+	        
+	        for(int j = 0; j < registros.size(); j++) {
+	            lista += registros.get(j) + "\n";
+	        }
+		   
+		    resultado.close();
+		    comando.close();
+		    conn.close();
+		    return lista;
 	  }
 
-	  public void atualiza()
-	  {
+	  public void atualiza(){
 	  }
 }

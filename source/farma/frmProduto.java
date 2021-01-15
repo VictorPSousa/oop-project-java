@@ -70,48 +70,21 @@ public class frmProduto extends JFrame {
 		btnVolta.setBounds(10, 11, 68, 23);
 		contentPane.add(btnVolta);
 		
-		String usuario = "root";
-	    String senha = "";
-	    String url = "jdbc:mysql://localhost/farmacia";
-	    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		Produto prod = new Produto();
 	    
-		if(list) {
+		if(list){
 			JLabel lblNewLabel = new JLabel("Lista de Produtos");
 			lblNewLabel.setForeground(new Color(0, 0, 102));
 			lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
 			lblNewLabel.setBounds(180, 12, 176, 16);
 			contentPane.add(lblNewLabel);
 			
-			String Sql = "SELECT * FROM `produto`";
-		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
-		    comando.execute();
-		      
-		    ResultSet resultado = comando.executeQuery();
-		    
-		    ArrayList<String> registros = new ArrayList<>();
-	        while(resultado.next()){
-	            registros.add(resultado.getString("prod_nome") + 
-	                    "\nCategoria: " + resultado.getString("prod_categoria") + 
-	                    "\nEstoque: " + resultado.getString("prod_estoque") +
-	                    "\nFornecedor: " + resultado.getString("prod_fornecedor") +
-	                    "\nPreco: R$" + resultado.getString("prod_preco") +
-	                    "\nMarca: " + resultado.getString("prod_marca") +
-	                    "\nData val: " + resultado.getString("prod_dtvalidade") + "\n\n");
-	        }
-	        String lista = "";
-	        for(int j = 0; j < registros.size(); j++) {
-	            lista += registros.get(j) + "\n";
-	        }
-	        TextArea cxTxt = new TextArea();
+			TextArea cxTxt = new TextArea();
 			cxTxt.setBounds(10, 101, 425, 340);
 			cxTxt.setBackground(Color.WHITE);
 			contentPane.add(cxTxt);
 			cxTxt.setEditable(false); 
-	        cxTxt.setText(lista);
-		   
-		    resultado.close();
-		    comando.close();
-		    conn.close();
+	        cxTxt.setText(prod.lista());
 		}else{
 			JLabel lblNewLabel = new JLabel("Gestão de Produtos");
 			lblNewLabel.setForeground(new Color(0, 0, 102));
@@ -130,7 +103,6 @@ public class frmProduto extends JFrame {
 			JButton btnBusca = new JButton("Busca");
 			btnBusca.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Produto prod = new Produto();
 					prod.setProd_nome(txtNome.getText());
 					// prod.busca(prod.getProd_nome());
 				}
@@ -192,14 +164,13 @@ public class frmProduto extends JFrame {
 			JButton btnSalva = new JButton("Salva");
 			btnSalva.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Produto prod = new Produto();
 					prod.setProd_nome(txtNome.getText());
-					prod.setProd_nome(txtCateg.getText());
-					prod.setProd_nome(txtEst.getText());
-					prod.setProd_nome(txtForne.getText());
-					prod.setProd_nome(txtPrec.getText());
-					prod.setProd_nome(txtMarc.getText());
-					prod.setProd_nome(txtDtVal.getText());
+					prod.setProd_categoria(txtCateg.getText());
+					prod.setProd_estoque(Integer.parseInt(txtEst.getText()));
+					prod.setProd_fornecedor(txtForne.getText());
+					prod.setProd_preco(Double.parseDouble(txtPrec.getText().replace(",", ".")));
+					prod.setProd_marca(txtMarc.getText());
+					prod.setProd_dtvalidade(txtDtVal.getText());
 					try {
 						prod.cadastra(prod);
 					} catch (SQLException e) {
@@ -211,21 +182,33 @@ public class frmProduto extends JFrame {
 			btnSalva.setBackground(new Color(0, 0, 102));
 			btnSalva.setForeground(Color.WHITE);
 			btnSalva.setFont(new Font("Arial", Font.PLAIN, 13));
-			btnSalva.setBounds(130, 410, 80, 23);
+			btnSalva.setBounds(80, 410, 80, 23);
 			contentPane.add(btnSalva);
 			
 			JButton btnEdita = new JButton("Edita");
 			btnEdita.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Produto prod = new Produto();
 					prod.atualiza();
 				}
 			});
 			btnEdita.setBackground(new Color(0, 0, 102));
 			btnEdita.setForeground(Color.WHITE);
 			btnEdita.setFont(new Font("Arial", Font.PLAIN, 13));
-			btnEdita.setBounds(240, 410, 80, 23);
+			btnEdita.setBounds(180, 410, 80, 23);
 			contentPane.add(btnEdita);
+			
+			JButton btnDel = new JButton("Deleta");
+			btnDel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					prod.deleta();
+				}
+			});
+			btnDel.setBackground(new Color(0, 0, 102));
+			btnDel.setForeground(Color.WHITE);
+			btnDel.setFont(new Font("Arial", Font.PLAIN, 13));
+			btnDel.setBounds(280, 410, 80, 23);
+			contentPane.add(btnDel);
+			
 		}
 	}
 }
