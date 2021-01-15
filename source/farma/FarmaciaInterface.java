@@ -254,7 +254,6 @@ public class FarmaciaInterface {
 						JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
 					}
 				}catch(SQLException e){
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

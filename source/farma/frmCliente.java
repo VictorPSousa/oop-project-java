@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -176,22 +177,19 @@ public class frmCliente extends JFrame {
 				public void actionPerformed(ActionEvent arg0){
 					String cpf = txtCPF.getText();
 					try{
-						cli.busca(cpf);
-						txtCPF.setText(cli.getClie_cpf());
-						txtNome.setText(cli.getClie_nome());
-						txtRG.setText(cli.getClie_rg());
-						
-						txtSexo.setText(cli.getClie_sexo());
-						
-						txtPlan.setText(cli.getClie_planosaude());
-						
-						txtDesco.setText(cli.getClie_desconto());
-						
-						txtTel.setText(cli.getClie_tel());
-						txtCEP.setText(cli.getClie_cep());
-						txtRua.setText(cli.getClie_rua());
-						txtNum.setText(cli.getClie_numero());
-						txtBairro.setText(cli.getClie_bairro());
+						Cliente clie = new Cliente();
+						clie = cli.busca(cpf);
+						txtCPF.setText(clie.getClie_cpf());
+						txtNome.setText(clie.getClie_nome());
+						txtRG.setText(clie.getClie_rg());
+						txtSexo.setText(clie.getClie_sexo()+"");
+						txtPlan.setText(clie.getClie_planosaude());
+						txtDesco.setText(Double.toString(clie.getClie_desconto()));
+						txtTel.setText(clie.getClie_tel());
+						txtCEP.setText(clie.getClie_cep());
+						txtRua.setText(clie.getClie_rua());
+						txtNum.setText(clie.getClie_numero());
+						txtBairro.setText(clie.getClie_bairro());
 					}catch(SQLException e){
 						e.printStackTrace();
 					}
@@ -220,6 +218,7 @@ public class frmCliente extends JFrame {
 					cli.setClie_bairro(txtBairro.getText());
 					try {
 						cli.cadastra(cli);
+						setVisible(false);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -235,7 +234,26 @@ public class frmCliente extends JFrame {
 			JButton btnEdita = new JButton("Edita");
 			btnEdita.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-				
+					cli.setClie_cpf(txtCPF.getText());
+					cli.setClie_nome(txtNome.getText());
+					cli.setClie_rg(txtRG.getText());
+					String gen = txtSexo.getText();
+					cli.setClie_sexo(gen.charAt(0));
+					cli.setClie_planosaude(txtPlan.getText());
+					cli.setClie_desconto(Double.parseDouble(txtDesco.getText().replace(",", ".")));
+					cli.setClie_tel(txtTel.getText());
+					cli.setClie_cep(txtCEP.getText());
+					cli.setClie_rua(txtRua.getText());
+					cli.setClie_numero(txtNum.getText());
+					cli.setClie_bairro(txtBairro.getText());
+					try {
+						cli.atualiza(cli);
+						JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+						setVisible(false);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 			btnEdita.setBackground(new Color(0, 0, 102));
@@ -247,7 +265,15 @@ public class frmCliente extends JFrame {
 			JButton btnDel = new JButton("Deleta");
 			btnDel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					cli.deleta();
+					String cpf = txtCPF.getText();
+					try {
+						cli.deleta(cpf);
+						JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+						setVisible(false);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 			btnDel.setBackground(new Color(0, 0, 102));

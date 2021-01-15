@@ -127,7 +127,7 @@ public class Cliente {
 	      		+ "'"+cli.getClie_desconto()+"','"+cli.getClie_tel()+"','"+cli.getClie_cep()+"',"
 	      		+ "'"+cli.getClie_rua()+"','"+cli.getClie_numero()+"','"+cli.getClie_bairro()+"');";
 	      
-	      JOptionPane.showMessageDialog(null, Sql);
+	      JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 	      
 	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
 	      comando.execute();
@@ -135,12 +135,33 @@ public class Cliente {
 	      conn.close();
 	  }
 
-	  public void deleta(){
-		  
+	  public void deleta(String cpf) throws SQLException{
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "DELETE FROM `cliente` WHERE `clie_cpf` = '"+cpf+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		    comando.close();
+		    conn.close();
 	  }
 
-	  public void atualiza(){
-		  
+	  public void atualiza(Cliente cli) throws SQLException{
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "UPDATE `cliente` SET `clie_nome` = '"+cli.getClie_nome()+"',"
+		    		+ "`clie_rg` = '"+cli.getClie_rg()+"', `clie_sexo` = '"+cli.getClie_sexo()+"',"
+		    		+ "`clie_planosaude` = '"+cli.getClie_planosaude()+"', `clie_desconto` = '"+cli.getClie_desconto()+"',"
+		    		+ " `clie_tel` = '"+cli.getClie_tel()+"', `clie_cep`='"+cli.getClie_cep()+"',"
+		    		+ " `clie_rua`='"+cli.getClie_rua()+"', `clie_numero`='"+cli.getClie_numero()+"',"
+		    		+ " `clie_bairro` = '"+cli.getClie_bairro()+"' WHERE `clie_cpf` = '"+cli.getClie_cpf()+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		    comando.close();
+		    conn.close();
 	  }
 
 	  public Cliente busca(String cpf) throws SQLException{
