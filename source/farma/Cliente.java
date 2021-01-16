@@ -1,7 +1,5 @@
 package farmacia;
 
-import java.awt.Color;
-import java.awt.TextArea;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -126,8 +124,6 @@ public class Cliente {
 	      		+ "'"+cli.getClie_rg()+"','"+cli.getClie_sexo()+"','"+cli.getClie_planosaude()+"',"
 	      		+ "'"+cli.getClie_desconto()+"','"+cli.getClie_tel()+"','"+cli.getClie_cep()+"',"
 	      		+ "'"+cli.getClie_rua()+"','"+cli.getClie_numero()+"','"+cli.getClie_bairro()+"');";
-	      
-	      JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 	      
 	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
 	      comando.execute();

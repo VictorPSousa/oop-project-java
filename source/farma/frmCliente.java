@@ -218,6 +218,7 @@ public class frmCliente extends JFrame {
 					cli.setClie_bairro(txtBairro.getText());
 					try {
 						cli.cadastra(cli);
+						JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 						setVisible(false);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

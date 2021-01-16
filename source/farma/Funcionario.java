@@ -11,231 +11,99 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 public class Funcionario {
-	 /**
-	   * CPF identificador do funcionário da farmácia
-	   */
 	  private String func_cpf;
-	  /**
-	   * Registro Geral do Funcionário
-	   */
 	  private String func_rg;
-	  /**
-	   * Data de nascimento do funcionário
-	   */
 	  private String func_dtnascimento;
-	  /**
-	   * Gênero do funcionário
-	   */
 	  private char func_sexo;
-	  /**
-	   * Nome do funcionário
-	   */
 	  private String func_nome;
-	  /**
-	   * CEP do funcionário
-	   */
 	  private String func_cep;
-	  /**
-	   * Rua onde o funcionário possui moradia
-	   */
-	  private String func_rua;  /**
-
-	   * Bairro em que o funcionário mora
-	   *    */
-
+	  private String func_rua;  
 	  private String func_bairro;
-	  /**
-	   * Número do logradouro do funcionário
-	   */
 	  private String func_numero;
+	  private int func_nivel_acesso;
 	  
-	  //
-	  // Constructors
-	  //
-	  public Funcionario () { };
+	  public Funcionario(){};
 	  
-	  //
-	  // Methods
-	  //
-
-
-	  //
-	  // Accessor methods
-	  //
-
-	  /**
-	   * Set the value of func_cpf
-	   * CPF identificador do funcionário da farmácia
-	   * @param newVar the new value of func_cpf
-	   */
 	  public void setFunc_cpf (String newVar) {
 	    func_cpf = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_cpf
-	   * CPF identificador do funcionário da farmácia
-	   * @return the value of func_cpf
-	   */
 	  public String getFunc_cpf () {
 	    return func_cpf;
 	  }
 
-	  /**
-	   * Set the value of func_rg
-	   * Registro Geral do Funcionário
-	   * @param newVar the new value of func_rg
-	   */
 	  public void setFunc_rg (String newVar) {
 	    func_rg = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_rg
-	   * Registro Geral do Funcionário
-	   * @return the value of func_rg
-	   */
 	  public String getFunc_rg () {
 	    return func_rg;
 	  }
 
-	  /**
-	   * Set the value of func_dtnascimento
-	   * Data de nascimento do funcionário
-	   * @param newVar the new value of func_dtnascimento
-	   */
 	  public void setFunc_dtnascimento (String newVar) {
 	    func_dtnascimento = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_dtnascimento
-	   * Data de nascimento do funcionário
-	   * @return the value of func_dtnascimento
-	   */
 	  public String getFunc_dtnascimento () {
 	    return func_dtnascimento;
 	  }
 
-	  /**
-	   * Set the value of func_sexo
-	   * Gênero do funcionário
-	   * @param newVar the new value of func_sexo
-	   */
 	  public void setFunc_sexo (char newVar) {
 	    func_sexo = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_sexo
-	   * Gênero do funcionário
-	   * @return the value of func_sexo
-	   */
 	  public char getFunc_sexo () {
 	    return func_sexo;
 	  }
 
-	  /**
-	   * Set the value of func_nome
-	   * Nome do funcionário
-	   * @param newVar the new value of func_nome
-	   */
 	  public void setFunc_nome (String newVar) {
 	    func_nome = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_nome
-	   * Nome do funcionário
-	   * @return the value of func_nome
-	   */
 	  public String getFunc_nome () {
 	    return func_nome;
 	  }
 
-	  /**
-	   * Set the value of func_cep
-	   * CEP do funcionário
-	   * @param newVar the new value of func_cep
-	   */
 	  public void setFunc_cep (String newVar) {
 	    func_cep = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_cep
-	   * CEP do funcionário
-	   * @return the value of func_cep
-	   */
 	  public String getFunc_cep () {
 	    return func_cep;
 	  }
 
-	  /**
-	   * Set the value of func_rua
-	   * Rua onde o funcionário possui moradia
-	   * @param newVar the new value of func_rua
-	   */
 	  public void setFunc_rua (String newVar) {
 	    func_rua = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_rua
-	   * Rua onde o funcionário possui moradia
-	   * @return the value of func_rua
-	   */
 	  public String getFunc_rua () {
 	    return func_rua;
 	  }
 
-	  /**
-	   * Set the value of func_bairro
-	   * Bairro em que o funcionário mora
-	   * 
-	   * @param newVar the new value of func_bairro
-	   */
 	  public void setFunc_bairro (String newVar) {
 	    func_bairro = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_bairro
-	   * Bairro em que o funcionário mora
-	   * 
-	   * @return the value of func_bairro
-	   */
 	  public String getFunc_bairro () {
 	    return func_bairro;
 	  }
 
-	  /**
-	   * Set the value of func_numero
-	   * Número do logradouro do funcionário
-	   * @param newVar the new value of func_numero
-	   */
 	  public void setFunc_numero (String newVar) {
 	    func_numero = newVar;
 	  }
 
-	  /**
-	   * Get the value of func_numero
-	   * Número do logradouro do funcionário
-	   * @return the value of func_numero
-	   */
 	  public String getFunc_numero () {
 	    return func_numero;
 	  }
+	  
+	  public int getFunc_nivel_acesso() {
+		return func_nivel_acesso;
+      }
 
-	  //
-	  // Other methods
-	  //
+	  public void setFunc_nivel_acesso(){
+		this.func_nivel_acesso = 0;
+	  }
 
-	  /**
-	   * @param        cpf_user
-	   * @param        rg_pass
-	   * @throws SQLException 
-	   */
 	  public void login(String cpf_user, String rg_pass) throws SQLException{
 		  String usuario = "root";
 	      String senha = "";
@@ -256,25 +124,37 @@ public class Funcionario {
 	      conn.close();
 	  }
 
+	  public void cadastra(Funcionario func) throws SQLException{
+		      String usuario = "root";
+		      String senha = "";
+		      String url = "jdbc:mysql://localhost/farmacia";
+		      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		      String Sql = "INSERT INTO `funcionario` (`func_cpf`, `func_rg`, `func_dtnascimento`, "
+		      		+ "`func_sexo`, `func_nome`, `func_cep`, `func_rua`, `func_bairro`, `func_numero`)"
+		      		+ " VALUES ('"+func.getFunc_cpf()+"','"+func.getFunc_rg()+"',"
+		      		+ "'"+func.getFunc_dtnascimento()+"','"+func.getFunc_sexo()+"',"
+		      		+ "'"+func.getFunc_nome()+"','"+func.getFunc_cep()+"',"
+		      		+ "'"+func.getFunc_rua()+"','"+func.getFunc_bairro()+"',"
+		      		+ "'"+func.getFunc_numero()+"')";
+		      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		      comando.execute();
+		      comando.close();
+		      conn.close();
+	  }
 
-	  /**
-	   * @param        func
-	   */
-	  public void cadastra(Funcionario func){
+	  public void deleta(String func_cpf) throws SQLException{
+		  String usuario = "root";
+		  String senha = "";
+		  String url = "jdbc:mysql://localhost/farmacia";
+		  java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		  String Sql = "DELETE FROM `funcionario` WHERE `func_cpf` = '"+func_cpf+"';";
+	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+	      comando.execute();
+	      comando.close();
+	      conn.close();
 	  }
 
 
-	  /**
-	   * @param        func
-	   */
-	  public void deleta(Funcionario func)
-	  {
-	  }
-
-
-	  /**
-	 * @throws SQLException 
-	   */
 	  public String lista() throws SQLException{
 		    String usuario = "root";
 		    String senha = "";
@@ -304,19 +184,49 @@ public class Funcionario {
 		    return lista;
 	  }
 
-
-	  /**
-	   * @param        func_nome
-	   */
-	  public void busca(String func_nome)
-	  {
+	  public Funcionario busca(String func_cpf) throws SQLException{
+		  	  Funcionario func = new Funcionario();
+		      String usuario = "root";
+		      String senha = "";
+		      String url = "jdbc:mysql://localhost/farmacia";
+		      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		      String Sql = "SELECT * FROM `funcionario` WHERE `func_cpf` = '"+ func_cpf + "'";
+		      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		      comando.execute();
+		      
+		      ResultSet resultado = comando.executeQuery();
+		      
+		      if(resultado != null && resultado.next()){
+		    	  func.setFunc_cpf(resultado.getString("func_cpf"));
+		    	  func.setFunc_rg(resultado.getString("func_rg"));
+		    	  func.setFunc_dtnascimento(resultado.getString("func_dtnascimento"));
+		    	  func.setFunc_sexo(resultado.getString("func_sexo").charAt(0));
+		    	  func.setFunc_nome(resultado.getString("func_nome"));
+		    	  func.setFunc_cep(resultado.getString("func_cep"));
+		    	  func.setFunc_rua(resultado.getString("func_rua"));
+		    	  func.setFunc_bairro(resultado.getString("func_bairro"));
+		    	  func.setFunc_numero(resultado.getString("func_numero"));
+	          }
+		      
+		      resultado.close();
+		      comando.close();
+		      conn.close();
+		      return func;
 	  }
 
-
-	  /**
-	   * @param        func
-	   */
-	  public void atualiza(Funcionario func)
-	  {
+	  public void atualiza(Funcionario func) throws SQLException{
+		      String usuario = "root";
+		      String senha = "";
+		      String url = "jdbc:mysql://localhost/farmacia";
+		      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		      String Sql = "UPDATE `funcionario` SET `func_rg`='"+func.getFunc_rg()+"',"
+		      		+ "`func_dtnascimento`='"+func.getFunc_dtnascimento()+"',`func_sexo`='"+func.getFunc_sexo()+"',"
+		      		+ "`func_nome`='"+func.getFunc_nome()+"',`func_cep`='"+func.getFunc_cep()+"',"
+		      		+ "`func_rua`='"+func.getFunc_rua()+"',`func_bairro`='"+func.getFunc_bairro()+"',"
+		      		+ "`func_numero`='"+func.getFunc_numero()+"' WHERE `func_cpf` = '"+func.getFunc_cpf()+"'";
+		      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		      comando.execute();
+		      comando.close();
+		      conn.close();
 	  }
 }
