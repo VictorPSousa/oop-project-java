@@ -198,7 +198,7 @@ public class Cliente {
 		    String senha = "";
 		    String url = "jdbc:mysql://localhost/farmacia";
 		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
-		    String Sql = "SELECT `clie_nome`, `clie_sexo`, `clie_planosaude`, `clie_tel` FROM `cliente`";
+		    String Sql = "SELECT `clie_cpf`, `clie_nome`, `clie_sexo`, `clie_planosaude`, `clie_tel` FROM `cliente`";
 		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
 		    comando.execute();
 		      
@@ -206,7 +206,8 @@ public class Cliente {
 		    
 		    ArrayList<String> registros = new ArrayList<>();
 	        while(resultado.next()){
-	            registros.add("Nome: "+resultado.getString("clie_nome") + 
+	            registros.add("CPF: "+resultado.getString("clie_cpf")+
+	            		"\nNome: "+resultado.getString("clie_nome") + 
 	                    "\nSexo: " + resultado.getString("clie_sexo") + 
 	                    "\nPlano de Saúde: " + resultado.getString("clie_planosaude") + 
 	                    "\nTelefone: " + resultado.getString("clie_tel")+"\n");

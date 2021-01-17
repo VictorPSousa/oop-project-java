@@ -100,20 +100,67 @@ public class Produto {
 	      		+ " '"+prod.getProd_preco()+"','"+prod.getProd_marca()+"',"
 	      		+ " '"+prod.getProd_dtvalidade()+"')";
 	      
-	      JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
-	      
 	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
 	      comando.execute();
 	      comando.close();
 	      conn.close();
 	  }
-
-	  public void deleta(){
-		  
+	  
+	  public void atualiza(Produto prod) throws SQLException{
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "UPDATE `produto` SET `prod_nome` = '"+prod.getProd_nome()+"',"
+		    		+ "`prod_categoria` = '"+prod.getProd_categoria()+"', `prod_estoque` = '"+prod.getProd_estoque()+"',"
+		    		+ "`prod_fornecedor` = '"+prod.getProd_fornecedor()+"', `prod_preco` = '"+prod.getProd_preco()+"',"
+		    		+ "`prod_marca` = '"+prod.getProd_marca()+"', `prod_dtvalidade`='"+prod.getProd_dtvalidade()+"'"
+		    		+ " WHERE `prod_codigo` = '"+prod.getProd_codigo()+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		    comando.close();
+		    conn.close();
 	  }
 
-	  public void busca(){
-		  
+	  public void deleta(int cod) throws SQLException{
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "DELETE FROM `produto` WHERE `prod_codigo` = '"+cod+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		    comando.close();
+		    conn.close();
+	  }
+
+	  public Produto busca(int cod) throws SQLException{
+		  Produto prod = new Produto();
+	      String usuario = "root";
+	      String senha = "";
+	      String url = "jdbc:mysql://localhost/farmacia";
+	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+	      String Sql = "SELECT * FROM `produto` WHERE `prod_codigo` = '"+ cod + "'";
+	      PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+	      comando.execute();
+	      
+	      ResultSet resultado = comando.executeQuery();
+	      
+	      if(resultado != null && resultado.next()){
+	    	  prod.setProd_codigo(Integer.parseInt(resultado.getString("prod_codigo")));
+	    	  prod.setProd_nome(resultado.getString("prod_nome"));
+	    	  prod.setProd_categoria(resultado.getString("prod_categoria"));
+	    	  prod.setProd_estoque(Integer.parseInt(resultado.getString("prod_estoque")));
+	    	  prod.setProd_fornecedor(resultado.getString("prod_fornecedor"));
+	    	  prod.setProd_preco(Double.parseDouble(resultado.getString("prod_preco")));
+	    	  prod.setProd_marca(resultado.getString("prod_marca"));
+	    	  prod.setProd_dtvalidade(resultado.getString("prod_dtvalidade"));
+          }
+	      
+	      resultado.close();
+	      comando.close();
+	      conn.close();
+	      return prod;
 	  }
 
 	  public String lista() throws SQLException{
@@ -131,7 +178,8 @@ public class Produto {
 		    
 		    ArrayList<String> registros = new ArrayList<>();
 	        while(resultado.next()){
-	            registros.add(resultado.getString("prod_nome") + 
+	            registros.add("\nCódigo: "+resultado.getString("prod_codigo") + 
+	            		"\nNome: " + resultado.getString("prod_nome") + 
 	                    "\nCategoria: " + resultado.getString("prod_categoria") + 
 	                    "\nEstoque: " + resultado.getString("prod_estoque") +
 	                    "\nFornecedor: " + resultado.getString("prod_fornecedor") +
@@ -148,8 +196,5 @@ public class Produto {
 		    comando.close();
 		    conn.close();
 		    return lista;
-	  }
-
-	  public void atualiza(){
 	  }
 }
