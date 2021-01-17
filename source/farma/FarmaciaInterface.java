@@ -213,7 +213,33 @@ public class FarmaciaInterface {
 		JMenu mnuComp = new JMenu("Compras");
 		menuBar.add(mnuComp);
 		JMenu mnuCompReg = new JMenu("Registrar");
+		mnuCompReg.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frmCompra c = null;
+				try {
+					c = new frmCompra(false);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				c.setVisible(true);
+			}
+		});
 		JMenu mnuCompList = new JMenu("Lista");
+		mnuCompList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frmCompra c = null;
+				try {
+					c = new frmCompra(true);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				c.setVisible(true);
+			}
+		});
 		
 		mnuComp.add(mnuCompReg);
 		mnuComp.add(mnuCompList);
