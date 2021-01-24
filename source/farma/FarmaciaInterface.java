@@ -21,14 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 
 public class FarmaciaInterface {
-
 	private JFrame frame;
 	private JTextField user;
 	private JTextField pass;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,16 +38,10 @@ public class FarmaciaInterface {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public FarmaciaInterface() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -210,6 +200,8 @@ public class FarmaciaInterface {
 		mnNewMenu_2.add(mnuProdAct);
 		mnNewMenu_2.add(mnuProdList);
 		
+		Funcionario func = new Funcionario();
+		
 		JMenu mnuComp = new JMenu("Compras");
 		menuBar.add(mnuComp);
 		JMenu mnuCompReg = new JMenu("Registrar");
@@ -217,10 +209,9 @@ public class FarmaciaInterface {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frmCompra c = null;
-				try {
-					c = new frmCompra(false);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+				try{
+					c = new frmCompra(false, func.getFunc_cpf());
+				}catch(SQLException e){
 					e.printStackTrace();
 				}
 				c.setVisible(true);
@@ -232,7 +223,7 @@ public class FarmaciaInterface {
 			public void mouseClicked(MouseEvent arg0) {
 				frmCompra c = null;
 				try {
-					c = new frmCompra(true);
+					c = new frmCompra(true, "0");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -259,7 +250,6 @@ public class FarmaciaInterface {
 		JButton logar = new JButton("Entrar\r\n");
 		logar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
-				Funcionario func = new Funcionario();
 				try {
 					func.login(user.getText(), pass.getText());
 					if(func.getFunc_nome() != null){

@@ -117,6 +117,7 @@ public class Funcionario {
 	      
 	      if(resultado != null && resultado.next()){
 	    	  setFunc_nome(resultado.getString("func_nome"));
+	    	  setFunc_cpf(cpf_user);
           }
 	      
 	      resultado.close();

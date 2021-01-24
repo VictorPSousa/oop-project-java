@@ -11,9 +11,9 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class Compra{
 	  private Integer compra_numNF;
-	  private Produto produto;
-	  private Cliente cliente;
-	  private Funcionario funcionario;
+	  private Integer produtoCod;
+	  private String clienteCod;
+	  private String funcionarioCod;
 	  private String compra_data;
 	  private Double compra_valor;
 	  private Integer compra_qtd;
@@ -29,28 +29,28 @@ public class Compra{
 	    return compra_numNF;
 	  }
 
-	  public void setProduto (Produto newVar) {
-	    produto = newVar;
+	  public void setProduto (Integer newVar) {
+		  produtoCod = newVar;
 	  }
 
-	  public Produto getProduto () {
-	    return produto;
+	  public Integer getProduto () {
+	    return produtoCod;
 	  }
 
-	  public void setCliente (Cliente newVar) {
-	    cliente = newVar;
+	  public void setCliente (String newVar) {
+	    clienteCod = newVar;
 	  }
 
-	  public Cliente getCliente () {
-	    return cliente;
+	  public String getCliente () {
+	    return clienteCod;
 	  }
 
-	  public void setFuncionario (Funcionario newVar) {
-	    funcionario = newVar;
+	  public void setFuncionario (String newVar) {
+	    funcionarioCod = newVar;
 	  }
 
-	  public Funcionario getFuncionario () {
-	    return funcionario;
+	  public String getFuncionario () {
+	    return funcionarioCod;
 	  }
 
 	  public void setCompra_data (String newVar) {
@@ -85,16 +85,106 @@ public class Compra{
 	    return compra_pag;
 	  }
 
-	  public void efetua(){
+	  public void efetua(Compra comp) throws SQLException{
+		  String usuario = "root";
+	      String senha = "";
+	      String url = "jdbc:mysql://localhost/farmacia";
+	    
+	      java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+	      String Sql = "SELECT `prod_preco` FROM `produto` WHERE `prod_codigo` = '"+comp.getProduto()+"';";
+		  PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		  comando.execute();
+		      
+		  ResultSet resultado = comando.executeQuery();
+		    
+		  ArrayList<String> registros = new ArrayList<>();
+	      while(resultado.next()){
+	            registros.add(resultado.getString("prod_preco"));
+	      }
+	      String preco = "";
+	      for(int j = 0; j < registros.size(); j++) {
+	    	  preco = registros.get(j);
+	      }
+
+		  resultado.close();
+		  comando.close();
 		  
+		  Double valor = (Double.parseDouble(preco)) * comp.getCompra_qtd();
+
+	      String Sql_compra = "INSERT INTO `compra`( `prod_codigo`, `clie_cpf`, `func_cpf`, `compra_data`,"
+	      		+ " `compra_valor`, `compra_qtd`, `compra_pag`) VALUES ('"+comp.getProduto()+"',"
+	      		+ "'"+comp.getCliente()+"','"+comp.getFuncionario()+"',"
+	      		+ "DATE(NOW()),"+valor+","
+	      		+ "'"+comp.getCompra_qtd()+"','"+comp.getCompra_pag()+"');";
+	      
+	      PreparedStatement comando_compra = (PreparedStatement) conn.prepareStatement(Sql_compra);
+	      comando_compra.execute();
+	      comando_compra.close();
+	      conn.close();
 	  }
 	  
-	  public void atualiza(){
-		  
+	  public void atualiza(Compra comp) throws SQLException{
+		  	String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "SELECT `prod_preco` FROM `produto` WHERE `prod_codigo` = '"+comp.getProduto()+"';";
+			PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+			comando.execute();
+			      
+			ResultSet resultado = comando.executeQuery();
+			    
+			ArrayList<String> registros = new ArrayList<>();
+		    while(resultado.next()){
+		            registros.add(resultado.getString("prod_preco"));
+		    }
+		    String preco = "";
+		    for(int j = 0; j < registros.size(); j++) {
+		    	  preco = registros.get(j);
+		    }
+
+			resultado.close();
+			comando.close();
+			
+			Double valor = (Double.parseDouble(preco)) * comp.getCompra_qtd();
+			  
+		    String Sql_compra = "UPDATE `compra` SET "
+		    		+ "`prod_codigo`='"+comp.getProduto()+"',`clie_cpf`='"+comp.getCliente()+"',"
+		    		+ "`func_cpf`='"+comp.getFuncionario()+"',`compra_valor`="+valor+","
+		    		+ "`compra_qtd`='"+comp.getCompra_qtd()+"',`compra_pag`='"+comp.getCompra_pag()+"'"
+		    		+ " WHERE `compra_numnf`='"+comp.getCompra_numNF()+"';";
+		    
+		    PreparedStatement comando_compra = (PreparedStatement) conn.prepareStatement(Sql_compra);
+		    comando_compra.execute();
+		    comando_compra.close();
+		    conn.close();
 	  }
 
-	  public void busca(){
-		  
+	  public Compra busca(int nf) throws SQLException{
+		    Compra cmp = new Compra();
+		    String usuario = "root";
+		    String senha = "";
+		    String url = "jdbc:mysql://localhost/farmacia";
+		    java.sql.Connection conn = DriverManager.getConnection(url, usuario, senha);
+		    String Sql = "SELECT * FROM `compra` WHERE `compra_numnf` = '"+nf+"'";
+		    PreparedStatement comando = (PreparedStatement) conn.prepareStatement(Sql);
+		    comando.execute();
+		      
+		    ResultSet resultado = comando.executeQuery();
+		    
+	        while(resultado.next()){
+	        	cmp.setProduto(Integer.parseInt(resultado.getString("prod_codigo"))); 
+	        	cmp.setCliente(resultado.getString("clie_cpf")); 
+	        	cmp.setFuncionario(resultado.getString("func_cpf")); 
+	        	cmp.setCompra_qtd(Integer.parseInt(resultado.getString("compra_qtd"))); 
+	        	cmp.setCompra_pag(resultado.getString("compra_pag")); 
+	        }
+		   
+		    resultado.close();
+		    comando.close();
+		    conn.close();
+		    return cmp;
 	  }
 	  
 	  public String lista() throws SQLException{
