@@ -19,7 +19,7 @@ public class Compra{
 	  private Integer compra_qtd;
 	  private String compra_pag;
 	  
-	  public Compra () { };
+	  public Compra(){};
 	  
 	  public void setCompra_numNF (Integer newVar) {
 	    compra_numNF = newVar;
