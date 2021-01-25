@@ -33,21 +33,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class frmFuncion extends JFrame{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frmFuncion frame = new frmFuncion(false);
+					frmFuncion frame = new frmFuncion(false, 0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,11 +49,7 @@ public class frmFuncion extends JFrame{
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
-	public frmFuncion(boolean list) throws SQLException{	
+	public frmFuncion(boolean list, int farmaceutic) throws SQLException{	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 461, 400);
 		contentPane = new JPanel();
@@ -201,77 +190,163 @@ public class frmFuncion extends JFrame{
 			btnBusca.setBounds(325, 47, 80, 23);
 			contentPane.add(btnBusca);
 			
-			JButton btnSalva = new JButton("Salva");
-			btnSalva.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					func.setFunc_cpf(txtCPF.getText());
-					func.setFunc_nome(txtNome.getText());
-					func.setFunc_rg(txtRG.getText());
-					func.setFunc_sexo(txtSexo.getText().charAt(0));
-					func.setFunc_dtnascimento(txtDtNasc.getText());
-					func.setFunc_cep(txtCEP.getText());
-					func.setFunc_rua(txtRua.getText());
-					func.setFunc_numero(txtNum.getText());
-					func.setFunc_bairro(txtBairro.getText());
-					try{
-						func.cadastra(func);
-						JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-						setVisible(false);
-					}catch(SQLException e){
-						e.printStackTrace();
+			if(farmaceutic == 1){
+				Farmaceutico farma = new Farmaceutico();
+				
+				JLabel lblNewLabel_13 = new JLabel("CRF");
+				lblNewLabel_13.setBounds(10, 320, 40, 23);
+				contentPane.add(lblNewLabel_13);
+				JTextField txtCRF = new JTextField();
+				txtCRF.setBounds(40, 320, 60, 23);
+				contentPane.add(txtCRF);
+				txtCRF.setColumns(10);
+				
+				JButton btnSalva = new JButton("Salva");
+				btnSalva.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						farma.setFunc_cpf(txtCPF.getText());
+						farma.setFunc_nome(txtNome.getText());
+						farma.setFunc_rg(txtRG.getText());
+						farma.setFunc_sexo(txtSexo.getText().charAt(0));
+						farma.setFunc_dtnascimento(txtDtNasc.getText());
+						farma.setFunc_cep(txtCEP.getText());
+						farma.setFunc_rua(txtRua.getText());
+						farma.setFunc_numero(txtNum.getText());
+						farma.setFunc_bairro(txtBairro.getText());
+						farma.setFarma_crf(txtCRF.getText());
+						try{
+							farma.cadastra(farma);
+							JOptionPane.showMessageDialog(null, "Farmacêutico cadastrado com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
 					}
-				}
-			});
-			btnSalva.setBackground(new Color(0, 0, 102));
-			btnSalva.setForeground(Color.WHITE);
-			btnSalva.setFont(new Font("Arial", Font.PLAIN, 13));
-			btnSalva.setBounds(80, 320, 80, 23);
-			contentPane.add(btnSalva);
-			
-			JButton btnEdita = new JButton("Edita");
-			btnEdita.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					func.setFunc_cpf(txtCPF.getText());
-					func.setFunc_nome(txtNome.getText());
-					func.setFunc_rg(txtRG.getText());
-					func.setFunc_sexo(txtSexo.getText().charAt(0));
-					func.setFunc_dtnascimento(txtDtNasc.getText());
-					func.setFunc_cep(txtCEP.getText());
-					func.setFunc_rua(txtRua.getText());
-					func.setFunc_numero(txtNum.getText());
-					func.setFunc_bairro(txtBairro.getText());
-					try{
-						func.atualiza(func);
-						JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso!");
-						setVisible(false);
-					}catch(SQLException e){
-						e.printStackTrace();
+				});
+				btnSalva.setBackground(new Color(0, 0, 102));
+				btnSalva.setForeground(Color.WHITE);
+				btnSalva.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnSalva.setBounds(100, 320, 80, 23);
+				contentPane.add(btnSalva);
+				
+				JButton btnEdita = new JButton("Edita");
+				btnEdita.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						farma.setFunc_cpf(txtCPF.getText());
+						farma.setFunc_nome(txtNome.getText());
+						farma.setFunc_rg(txtRG.getText());
+						farma.setFunc_sexo(txtSexo.getText().charAt(0));
+						farma.setFunc_dtnascimento(txtDtNasc.getText());
+						farma.setFunc_cep(txtCEP.getText());
+						farma.setFunc_rua(txtRua.getText());
+						farma.setFunc_numero(txtNum.getText());
+						farma.setFunc_bairro(txtBairro.getText());
+						farma.setFarma_crf(txtCRF.getText());
+						try{
+							farma.atualiza(farma);
+							JOptionPane.showMessageDialog(null, "Farmacêutico editado com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
 					}
-				}
-			});
-			btnEdita.setBackground(new Color(0, 0, 102));
-			btnEdita.setForeground(Color.WHITE);
-			btnEdita.setFont(new Font("Arial", Font.PLAIN, 13));
-			btnEdita.setBounds(180, 320, 80, 23);
-			contentPane.add(btnEdita);
-			
-			JButton btnDel = new JButton("Deleta");
-			btnDel.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent arg0){
-					try{
-						func.deleta(txtCPF.getText());
-						JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso!");
-						setVisible(false);
-					}catch(SQLException e){
-						e.printStackTrace();
+				});
+				btnEdita.setBackground(new Color(0, 0, 102));
+				btnEdita.setForeground(Color.WHITE);
+				btnEdita.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnEdita.setBounds(200, 320, 80, 23);
+				contentPane.add(btnEdita);
+				
+				JButton btnDel = new JButton("Deleta");
+				btnDel.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent arg0){
+						try{
+							farma.deleta(txtCPF.getText());
+							JOptionPane.showMessageDialog(null, "Farmacêutico excluído com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
 					}
-				}
-			});
-			btnDel.setBackground(new Color(0, 0, 102));
-			btnDel.setForeground(Color.WHITE);
-			btnDel.setFont(new Font("Arial", Font.PLAIN, 13));
-			btnDel.setBounds(280, 320, 80, 23);
-			contentPane.add(btnDel);
+				});
+				btnDel.setBackground(new Color(0, 0, 102));
+				btnDel.setForeground(Color.WHITE);
+				btnDel.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnDel.setBounds(300, 320, 80, 23);
+				contentPane.add(btnDel);
+			}else {
+				JButton btnSalva = new JButton("Salva");
+				btnSalva.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						func.setFunc_cpf(txtCPF.getText());
+						func.setFunc_nome(txtNome.getText());
+						func.setFunc_rg(txtRG.getText());
+						func.setFunc_sexo(txtSexo.getText().charAt(0));
+						func.setFunc_dtnascimento(txtDtNasc.getText());
+						func.setFunc_cep(txtCEP.getText());
+						func.setFunc_rua(txtRua.getText());
+						func.setFunc_numero(txtNum.getText());
+						func.setFunc_bairro(txtBairro.getText());
+						try{
+							func.cadastra(func);
+							JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+					}
+				});
+				btnSalva.setBackground(new Color(0, 0, 102));
+				btnSalva.setForeground(Color.WHITE);
+				btnSalva.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnSalva.setBounds(80, 320, 80, 23);
+				contentPane.add(btnSalva);
+				
+				JButton btnEdita = new JButton("Edita");
+				btnEdita.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						func.setFunc_cpf(txtCPF.getText());
+						func.setFunc_nome(txtNome.getText());
+						func.setFunc_rg(txtRG.getText());
+						func.setFunc_sexo(txtSexo.getText().charAt(0));
+						func.setFunc_dtnascimento(txtDtNasc.getText());
+						func.setFunc_cep(txtCEP.getText());
+						func.setFunc_rua(txtRua.getText());
+						func.setFunc_numero(txtNum.getText());
+						func.setFunc_bairro(txtBairro.getText());
+						try{
+							func.atualiza(func);
+							JOptionPane.showMessageDialog(null, "Funcionário editado com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+					}
+				});
+				btnEdita.setBackground(new Color(0, 0, 102));
+				btnEdita.setForeground(Color.WHITE);
+				btnEdita.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnEdita.setBounds(180, 320, 80, 23);
+				contentPane.add(btnEdita);
+				
+				JButton btnDel = new JButton("Deleta");
+				btnDel.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent arg0){
+						try{
+							func.deleta(txtCPF.getText());
+							JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso!");
+							setVisible(false);
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+					}
+				});
+				btnDel.setBackground(new Color(0, 0, 102));
+				btnDel.setForeground(Color.WHITE);
+				btnDel.setFont(new Font("Arial", Font.PLAIN, 13));
+				btnDel.setBounds(280, 320, 80, 23);
+				contentPane.add(btnDel);
+			}
 		}
 	}
 }

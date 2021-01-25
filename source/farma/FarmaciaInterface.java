@@ -49,6 +49,8 @@ public class FarmaciaInterface {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		Funcionario func = new Funcionario();
+		
 		JLabel lblNewLabel = new JLabel("Farm\u00E1cia Guarulhense\r\n");
 		lblNewLabel.setForeground(new Color(0, 0, 102));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 23));
@@ -100,22 +102,25 @@ public class FarmaciaInterface {
 			public void mouseClicked(MouseEvent arg0) {
 				frmFuncion c = null;
 				try {
-					c = new frmFuncion(true);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					c = new frmFuncion(true, 0);
+				}catch(SQLException e){
 					e.printStackTrace();
 				}
 				c.setVisible(true);
 			}
 		});
 		
-		JMenu mnuFuncAct = new JMenu("A\u00E7\u00F5es");
+		JMenu mnuFuncAct = new JMenu("Ações");
 		mnuFuncAct.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frmFuncion c = null;
 				try {
-					c = new frmFuncion(false);
+					if(func.getFunc_nivel_acesso() != 0) {
+						c = new frmFuncion(false, 1);
+					}else{
+						c = new frmFuncion(false, 0);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -199,8 +204,6 @@ public class FarmaciaInterface {
 		
 		mnNewMenu_2.add(mnuProdAct);
 		mnNewMenu_2.add(mnuProdList);
-		
-		Funcionario func = new Funcionario();
 		
 		JMenu mnuComp = new JMenu("Compras");
 		menuBar.add(mnuComp);

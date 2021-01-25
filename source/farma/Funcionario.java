@@ -20,9 +20,15 @@ public class Funcionario {
 	  private String func_rua;  
 	  private String func_bairro;
 	  private String func_numero;
-	  private int func_nivel_acesso;
+	  static int func_nivel_acesso;
 	  
-	  public Funcionario(){};
+	  public Funcionario(){
+		  func_nivel_acesso = 0;
+	  };
+	  
+	  public Funcionario(int nvl_acesso){
+		  Funcionario.func_nivel_acesso = nvl_acesso;
+	  };
 	  
 	  public void setFunc_cpf (String newVar) {
 	    func_cpf = newVar;
@@ -100,10 +106,6 @@ public class Funcionario {
 		return func_nivel_acesso;
       }
 
-	  public void setFunc_nivel_acesso(){
-		this.func_nivel_acesso = 0;
-	  }
-
 	  public void login(String cpf_user, String rg_pass) throws SQLException{
 		  String usuario = "root";
 	      String senha = "";
@@ -118,6 +120,19 @@ public class Funcionario {
 	      if(resultado != null && resultado.next()){
 	    	  setFunc_nome(resultado.getString("func_nome"));
 	    	  setFunc_cpf(cpf_user);
+	    	  
+	    	  String Sql_farma = "SELECT * FROM `farmaceutico` WHERE `func_cpf` = '"+cpf_user+ "';";
+		      PreparedStatement comando_farma = (PreparedStatement) conn.prepareStatement(Sql_farma);
+		      comando_farma.execute();
+		      
+		      ResultSet resultado_farma = comando_farma.executeQuery();
+		      if(resultado_farma != null && resultado_farma.next()){
+		    	  Farmaceutico farma = new Farmaceutico();
+		    	  farma.setFarma_crf(resultado_farma.getString("farma_crf"));
+		      }
+		      
+		      resultado_farma.close();
+		      comando_farma.close();
           }
 	      
 	      resultado.close();
@@ -154,7 +169,6 @@ public class Funcionario {
 	      comando.close();
 	      conn.close();
 	  }
-
 
 	  public String lista() throws SQLException{
 		    String usuario = "root";
