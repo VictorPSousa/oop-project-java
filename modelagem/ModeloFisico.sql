@@ -1,4 +1,5 @@
 CREATE DATABASE `farmacia`;
+USE `farmacia`;
 
 CREATE TABLE `cliente`(
   `clie_cpf` VARCHAR(14) PRIMARY KEY NOT NULL,
@@ -74,7 +75,6 @@ INSERT INTO `cliente` (`clie_cpf`, `clie_nome`, `clie_rg`, `clie_sexo`, `clie_pl
 INSERT INTO `farmaceutico` (`farma_crf`, `func_cpf`) VALUES ('89561', '314.793.311-39');
 
 INSERT INTO `funcionario` (`func_cpf`, `func_rg`, `func_dtnascimento`, `func_sexo`, `func_nome`, `func_cep`, `func_rua`, `func_bairro`, `func_numero`) VALUES
-('1', '1', '1901-01-01', 'F', '1', '11111-111', '1', '1', '1'), -- Teste p/ facilitar o login (apagar para entrega)
 ('314.793.311-39', '22.931.928-2', '1980-08-27', 'F', 'Eduarda Isabelle Dias', '58055-710', 'Rua Dineza Carneiro Monteiro', 'Mangabeira', '234C'),
 ('688.540.376-80', '24.668.927-4', '1988-03-06', 'F', 'Simone Nunes', '84060-270', 'Rua Osório Subtil Marçal', 'Contorno', '100'),
 ('698.856.281-85', '10.057.146-3', '1991-07-13', 'M', 'Luiz Henrique Gomes', '69313-688', 'Avenida Rui Baraúna', 'Jardim Caranã', '814A');
